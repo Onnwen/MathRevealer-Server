@@ -6,9 +6,9 @@ const {json} = require("express");
 /* GET | /users/id */
 router.get('/:id', async function(req, res, next) {
     try {
-        let usersList = await users.getUserById(req.params.id);
-        if (usersList.length) {
-            res.json(usersList[0]);
+        let userInformations = await users.getUserById(req.params.id);
+        if (userInformations.length) {
+            res.json(userInformations[0]);
         }
         else {
             res.json({message: "User does not exist."});
@@ -20,14 +20,14 @@ router.get('/:id', async function(req, res, next) {
 });
 
 /* POST | /users/login */
-router.get('/login', async function(req, res, next) {
+router.post('/login', async function(req, res, next) {
     try {
-        let usersList = await users.getUserByCredentials(req.params.id);
-        if (usersList.length) {
-            res.json(usersList[0]);
+        let userInformations = await users.getUserByCredentials(req.body);
+        if (userInformations.length) {
+            res.json({status_code: 1, userInformations: userInformations[0]});
         }
         else {
-            res.json({message: "User does not exist."});
+            res.json({status_code: 0});
         }
     } catch (err) {
         console.error(`Error`, err.message);
