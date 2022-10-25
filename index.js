@@ -11,6 +11,15 @@ app.use(
     })
 );
 
+/* Headers setting */
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    //res.setHeader('Access-Control-Allow-Credentials', true);
+
+    next();
+});
+
+/* Routes */
 app.get("/", (req, res) => {
     res.json({message: "ok"});
 });
