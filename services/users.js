@@ -23,7 +23,7 @@ async function addUser(userInformation) {
         return 0;
     }
     try {
-        await db.query(`INSERT INTO users (first_name, last_name, hashed_password, email) VALUES ('${userInformation.first_name}', '${userInformation.last_name}', '${userInformation.hashed_password}', '${userInformation.email}')`);
+        await db.query(`INSERT INTO users (first_name, last_name, hashed_password, email, creation_date) VALUES ('${userInformation.first_name}', '${userInformation.last_name}', '${userInformation.hashed_password}', '${userInformation.email}', CURRENT_TIMESTAMP)`);
         return 1;
     }
     catch (e) {
