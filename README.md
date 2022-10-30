@@ -5,3 +5,6 @@
 ### Framework usati
 - NodeJS
 - Express
+
+### Prossimi sviluppi
+- Implementazione calcolo dominio
