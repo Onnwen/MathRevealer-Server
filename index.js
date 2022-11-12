@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const users = require("./routes/users");
-const reveal = require("./routes/reveal");
 
 app.use(express.json());
 
@@ -27,9 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", users);
 
-app.use("/reveal", reveal);
-
-/* Error handler middleware */
+/* Error handler */
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
     console.error(err.message, err.stack);
