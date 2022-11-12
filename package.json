@@ -1,24 +1,25 @@
 {
-  "name": "mathrevealer-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Onnwen/MathRevealer-Server.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Onnwen/MathRevealer-Server/issues"
-  },
-  "homepage": "https://github.com/Onnwen/MathRevealer-Server#readme",
-  "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^2.3.3"
-  }
+    "name": "mathrevealer-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Onnwen/MathRevealer-Server.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Onnwen/MathRevealer-Server/issues"
+    },
+    "homepage": "https://github.com/Onnwen/MathRevealer-Server#readme",
+    "dependencies": {
+        "express": "^4.18.2",
+        "mysql2": "^2.3.3"
+    }
 }
