@@ -43,7 +43,7 @@ router.post('/resend', async function(req, res, next) {
 /* POST - /users/confirm */
 router.post('/confirm', async function(req, res, next) {
     try {
-        res.json(await users.confirmUserRegistration(req.params.registrationCode));
+        res.json(await users.confirmUserRegistration(req.body.code));
     } catch (err) {
         console.error(`Error`, err.message);
         next(err);
