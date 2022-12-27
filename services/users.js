@@ -69,7 +69,8 @@ async function resendVerificationEmail(email) {
         const url = Uuid.v4();
         // Update query to update the verification code from user mail
         await db.query(`UPDATE verification_urls SET url = '${url}' WHERE user_id = (SELECT id FROM users WHERE email = '${email}')`);
-        await sendVerificationEmail(email, url);
+        let userInformation = {email: email}
+        await sendVerificationEmail(userInformation, url);
         return {status_code: 1, message: "Email sent successfully."};
     } catch (err) {
         console.log(err);
