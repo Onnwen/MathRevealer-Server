@@ -33,6 +33,7 @@ router.post('/login', async function(req, res, next) {
 /* POST - /users/resend */
 router.post('/resend', async function(req, res, next) {
     try {
+        console.log(req.body);
         res.json(await users.resendVerificationEmail(req.body.email));
     } catch (err) {
         console.error(`Error`, err.message);
