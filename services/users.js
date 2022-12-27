@@ -64,11 +64,12 @@ async function addUser(userInformation) {
     }
 }
 
-async function resendVerificationEmail(userInformation) {
+async function resendVerificationEmail(email) {
     try {
         const url = Uuid.v4();
-        await db.query(`UPDATE verification_urls SET url = '${url}' WHERE user_id = ${userInformation.id}`);
-        await sendVerificationEmail(userInformation, url);
+        // Update query to update the verification code from user mail
+        await db.query(`UPDATE verification_urls SET url = '${url}' WHERE user_id = (SELECT id FROM users WHERE email = '${email}')`);
+        await sendVerificationEmail(email, url);
         return {status_code: 1, message: "Email sent successfully."};
     } catch (err) {
         console.log(err);
