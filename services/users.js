@@ -65,16 +65,25 @@ async function addUser(userInformation) {
 }
 
 async function resendVerificationEmail(email) {
-    try {
-        const url = Uuid.v4();
-        // Update query to update the verification code from user mail
-        await db.query(`UPDATE verification_urls SET url = '${url}' WHERE user_id = (SELECT id FROM users WHERE email = '${email}')`);
-        let userInformation = {email: email}
-        await sendVerificationEmail(userInformation, url);
-        return {status_code: 1, message: "Email sent successfully."};
-    } catch (err) {
-        console.log(err);
-        return {status_code: 0, message: "Email not sent."};
+    const result = await db.query(`SELECT users.email_verified FROM users WHERE users.email = '${email}'`);
+    if (result.length) {
+        if (result[0].email_verified) {
+            return {status_code: 2, message: "User already verified."};
+        }
+    }
+    else {
+        try {
+            const url = Uuid.v4();
+            await db.query(`UPDATE verification_urls
+                            SET url = '${url}'
+                            WHERE user_id = (SELECT id FROM users WHERE email = '${email}')`);
+            let userInformation = {email: email}
+            await sendVerificationEmail(userInformation, url);
+            return {status_code: 1, message: "Email sent successfully."};
+        } catch (err) {
+            console.log(err);
+            return {status_code: 0, message: "Email not sent."};
+        }
     }
 }
 
