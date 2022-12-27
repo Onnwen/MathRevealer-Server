@@ -22,7 +22,7 @@ router.get('/:id', async function(req, res, next) {
 router.post('/login', async function(req, res, next) {
     try {
         let userInformation = await users.getUserByCredentials(req.body);
-        delete userInformation.userInformation.hashed_password;
+        delete userInformation.hashed_password;
         res.json(userInformation);
     } catch (err) {
         console.error(`Error`, err.message);
