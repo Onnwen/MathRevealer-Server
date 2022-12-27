@@ -55,8 +55,19 @@ async function addUser(userInformation) {
                     await sendVerificationEmail(userInformation.email, url);
                     return {status_code: 1, message: "User created successfully."};
                 } catch (err) {
-                    console.log(err);
-                    return {status_code: 0, message: "User already exists."};
+                    const userStatusCode = await getUserByCredentials(userInformation).status_code;
+                    if (userStatusCode === 1) {
+                        return {status_code: 3, message: "User already exists. Credentials are correct."};
+                    }
+                    else if (userStatusCode === 2) {
+                        return {status_code: 2, message: "User already exists. Pending confirmation."};
+                    }
+                    else if (userStatusCode === -1) {
+                        return {status_code: 0, message: "User already exists. Credentials are incorrect."};
+                    }
+                    else {
+                        return {status_code: -1, message: "User does not exits. Error creating user."};
+                    }
                 }
             })
     } catch (e) {
