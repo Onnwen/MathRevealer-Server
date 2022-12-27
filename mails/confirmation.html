@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Conferma registrazione a MathRevealer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css?family=Quicksand&amp;display=swap');
+
+        .rounded-box {
+            padding: 40px 40px 40px 40px;
+            border-radius: 20px;
+            background-color: #212529;
+            margin: 30px;
+        }
+
+        body {
+            background-color: white;
+            text-align: center;
+        }
+
+        p {
+            color: #f8f9fa;
+            font-family: Montserrat, sans-serif;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        h1 {
+            font-family: Quicksand, sans-serif;
+            color: #f8f9fa;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .object {
+            color: #f8f9fa;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        a {
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px 20px 10px;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .rounded-box {
+                margin: 0;
+                padding: 20px 15px 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="rounded-box .black" style="text-align: left">
+    <h1>MathRevealer</h1>
+    <p class="object">Conferma la tua registrazione per iniziare a usare MathRevealer.&nbsp;</p>
+    <p>Buongiorno {{first_name}}.</p>
+    <p>Grazie per esserti registrato a MathRevealer. Il nostro servizio ti permetterà ricavare informazioni utili in merito a qualunque funzione tu abbia in mente. Grazie a potenti algoritmi, MathRevealer è in grado di fornire informazioni dettagliate su ogni funzione, come il dominio, il segno, i limiti, il grafico e tanto altro.</p>
+    <p>Per confermare la tua registrazione e iniziare a utilizzare MathRevealer, clicca sul seguente tasto:</p>
+    <br>
+    <p><a href="https://mathrevealer.garamante.it/confirm?registration={{registration_code}}">Conferma registrazione</a></p>
+    <br>
+    <p>Se non hai richiesto la registrazione a MathRevealer, ignora questa email.</p>
+    <br>
+    <p>Grazie,</p>
+    <p>Il team di MathRevealer</p>
+</div>
+</body>
+</html>
