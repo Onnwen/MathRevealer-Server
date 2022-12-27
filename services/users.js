@@ -52,7 +52,7 @@ async function addUser(userInformation) {
                     const url = Uuid.v4();
                     const result = await db.query(`INSERT INTO users (first_name, last_name, hashed_password, email) VALUES ('${userInformation.first_name}', '${userInformation.last_name}','${hash}', '${userInformation.email}')`);
                     await db.query(`INSERT INTO verification_urls (user_id, url) VALUES (${result.insertId}, '${url}')`);
-                    await sendVerificationEmail(userInformation.email, url);
+                    await sendVerificationEmail(userInformation, url);
                     return {status_code: 1, message: "User created successfully."};
                 } catch (err) {
                     const userStatusCode = await getUserByCredentials(userInformation).status_code;
