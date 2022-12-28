@@ -25,6 +25,7 @@ app.use(session({
     secret: crypto.randomBytes(32).toString('hex'),
     resave: false,
     saveUninitialized: true,
+    secure: process.env.NODE_ENV === 'production',
     cookie: {
         maxAge: 24 * 60 * 60 * 1000
     }
