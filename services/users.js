@@ -128,11 +128,23 @@ async function myAccount(req) {
     return {status_code: 0, message: "User not logged."};
 }
 
+async function saveExpression(expression) {
+    try {
+        await db.query(`INSERT INTO chronology (expression)
+                        VALUES ('${expression}')`);
+        return {status_code: 1, message: "Expression saved successfully."};
+    } catch (err) {
+        console.log(err);
+        return {status_code: 0, message: "Expression not saved."};
+    }
+}
+
 module.exports = {
     getUserById,
     login,
     register,
     resendVerificationEmail,
     confirmUserRegistration,
-    myAccount
+    myAccount,
+    saveExpression
 }

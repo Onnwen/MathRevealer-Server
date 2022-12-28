@@ -92,4 +92,15 @@ router.post('/register', async function(req, res, next) {
     }
 });
 
+/* POST - /users/saveExpression*/
+router.post('/saveExpression', async function(req, res, next) {
+    try {
+        let responseCode = await users.saveExpression(req.body.expression);
+        res.json(responseCode);
+    } catch (err) {
+        console.error(`Error`, err.message);
+        next(err);
+    }
+});
+
 module.exports = router;
