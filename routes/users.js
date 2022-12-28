@@ -7,7 +7,7 @@ const sessions = require('express-session');
 /* GET | /users/myaccount */
 router.get('/myaccount', async function(req, res, next) {
     try {
-        res.json(await users.myAccount());
+        res.json(await users.myAccount(req));
     } catch (err) {
         console.error(`Error`, err.message);
         next(err);
@@ -33,7 +33,7 @@ router.get('/get/:id', async function(req, res, next) {
 /* POST - /users/login */
 router.post('/login', async function(req, res, next) {
     try {
-        let userInformation = await users.getUserByCredentials(req.body);
+        let userInformation = await users.login(req.body, req);
         delete userInformation.hashed_password;
         res.json(userInformation);
     } catch (err) {
@@ -65,7 +65,7 @@ router.post('/confirm', async function(req, res, next) {
 /* POST - /users/register*/
 router.post('/register', async function(req, res, next) {
     try {
-        let responseCode = await users.addUser(req.body);
+        let responseCode = await users.register(req.body, req);
         res.json(responseCode);
     } catch (err) {
         console.error(`Error`, err.message);

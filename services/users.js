@@ -11,7 +11,7 @@ async function getUserById(id) {
                            WHERE users.id = ${id}`)
 }
 
-async function getUserByCredentials(credentials) {
+async function login(credentials, req) {
     const userInformation = await db.query(`SELECT users.id,
                                                    users.first_name,
                                                    users.last_name,
@@ -25,6 +25,7 @@ async function getUserByCredentials(credentials) {
             .compare(credentials.password, userInformation[0].hashed_password)
             .then(function (result) {
                 if (result) {
+                    req.session.userInformation = userInformation[0];
                     if (userInformation[0].email_verified) {
                         return {status_code: 1, userInformation: userInformation[0]};
                     }
@@ -40,7 +41,7 @@ async function getUserByCredentials(credentials) {
     }
 }
 
-async function addUser(userInformation) {
+async function register(userInformation, req) {
     if (userInformation.first_name === undefined || userInformation.last_name === undefined || userInformation.password === undefined || userInformation.email === undefined) {
         return 0;
     }
@@ -53,9 +54,10 @@ async function addUser(userInformation) {
                     const result = await db.query(`INSERT INTO users (first_name, last_name, hashed_password, email) VALUES ('${userInformation.first_name}', '${userInformation.last_name}','${hash}', '${userInformation.email}')`);
                     await db.query(`INSERT INTO verification_urls (user_id, url) VALUES (${result.insertId}, '${url}')`);
                     await sendVerificationEmail(userInformation, url);
+                    req.session.userInformation = userInformation[0];
                     return {status_code: 1, message: "User created successfully."};
                 } catch (err) {
-                    switch ((await getUserByCredentials(userInformation)).status_code) {
+                    switch ((await login(userInformation)).status_code) {
                         case 1:
                             return {status_code: 3, message: "User already exists. Credentials are correct."};
                         case 2:
@@ -114,14 +116,22 @@ async function confirmUserRegistration(verificationCode) {
     }
 }
 
-async function myAccount() {
+async function myAccount(req) {
+    if (req.session.userInformation) {
+        const information = req.session.userInformation;
+        delete information.hashed_password;
+        return {status_code: 1, userInformation: information};
+    }
+    else {
+
+    }
     return {status_code: 0, message: "User not logged."};
 }
 
 module.exports = {
     getUserById,
-    getUserByCredentials,
-    addUser,
+    login,
+    register,
     resendVerificationEmail,
     confirmUserRegistration,
     myAccount

@@ -1,7 +1,9 @@
 const express = require("express");
+const crypto = require("crypto");
 const app = express();
 const port = 3000;
 const users = require("./routes/users");
+const session = require("express-session");
 
 app.use(express.json());
 
@@ -18,6 +20,15 @@ app.use(function (req, res, next) {
 
     next();
 });
+
+app.use(session({
+    secret: crypto.randomBytes(32).toString('hex'),
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000
+    }
+}));
 
 /* Routes */
 app.get("/", (req, res) => {
