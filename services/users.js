@@ -26,6 +26,7 @@ async function login(credentials, req) {
             .then(function (result) {
                 if (result) {
                     req.session.userInformation = userInformation[0];
+                    delete userInformation[0].hashed_password;
                     if (userInformation[0].email_verified) {
                         return {status_code: 1, userInformation: userInformation[0]};
                     }
@@ -128,10 +129,10 @@ async function myAccount(req) {
     return {status_code: 0, message: "User not logged."};
 }
 
-async function saveExpression(expression) {
+async function saveExpression(expression, id) {
     try {
-        await db.query(`INSERT INTO chronology (expression)
-                        VALUES ('${expression}')`);
+        await db.query(`INSERT INTO chronology (user_id, expression)
+                        VALUES (${id}, '${expression}')`);
         return {status_code: 1, message: "Expression saved successfully."};
     } catch (err) {
         console.log(err);
