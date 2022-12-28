@@ -95,7 +95,7 @@ router.post('/register', async function(req, res, next) {
 /* POST - /users/saveExpression*/
 router.post('/saveExpression', async function(req, res, next) {
     try {
-        let responseCode = await users.saveExpression(req.body.expression);
+        let responseCode = await users.saveExpression(req.body.expression, req.body.user_id);
         res.json(responseCode);
     } catch (err) {
         console.error(`Error`, err.message);
