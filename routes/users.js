@@ -18,6 +18,16 @@ router.get('/:id', async function(req, res, next) {
     }
 });
 
+/* GET | /users/myaccount */
+router.get('/myaccount', async function(req, res, next) {
+    try {
+        res.json(await users.myAccount());
+    } catch (err) {
+        console.error(`Error`, err.message);
+        next(err);
+    }
+});
+
 /* POST - /users/login */
 router.post('/login', async function(req, res, next) {
     try {

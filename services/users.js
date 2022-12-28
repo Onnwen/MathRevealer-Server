@@ -117,10 +117,15 @@ async function confirmUserRegistration(verificationCode) {
     }
 }
 
+async function myAccount() {
+    return {status_code: 0, message: "User not logged."};
+}
+
 module.exports = {
     getUserById,
     getUserByCredentials,
     addUser,
     resendVerificationEmail,
-    confirmUserRegistration
+    confirmUserRegistration,
+    myAccount
 }
