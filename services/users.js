@@ -57,7 +57,7 @@ async function register(userInformation, req) {
                     req.session.userInformation = userInformation[0];
                     return {status_code: 1, message: "User created successfully."};
                 } catch (err) {
-                    switch ((await login(userInformation)).status_code) {
+                    switch ((await login(userInformation, req)).status_code) {
                         case 1:
                             return {status_code: 3, message: "User already exists. Credentials are correct."};
                         case 2:
