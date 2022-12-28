@@ -55,18 +55,15 @@ async function addUser(userInformation) {
                     await sendVerificationEmail(userInformation, url);
                     return {status_code: 1, message: "User created successfully."};
                 } catch (err) {
-                    const userStatusCode = await getUserByCredentials(userInformation).status_code;
-                    if (userStatusCode === 1) {
-                        return {status_code: 3, message: "User already exists. Credentials are correct."};
-                    }
-                    else if (userStatusCode === 2) {
-                        return {status_code: 2, message: "User already exists. Pending confirmation."};
-                    }
-                    else if (userStatusCode === -1) {
-                        return {status_code: 0, message: "User already exists. Credentials are incorrect."};
-                    }
-                    else {
-                        return {status_code: -1, message: "User does not exits. Error creating user."};
+                    switch ((await getUserByCredentials(userInformation)).status_code) {
+                        case 1:
+                            return {status_code: 3, message: "User already exists. Credentials are correct."};
+                        case 2:
+                            return {status_code: 2, message: "User already exists. Pending confirmation."};
+                        case -1:
+                            return {status_code: 0, message: "User already exists. Credentials are incorrect."};
+                        default:
+                            return {status_code: -1, message: "User does not exits. Error creating user."};
                     }
                 }
             })
