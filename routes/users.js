@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const users = require('../services/users');
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
 
 /* GET | /users/myaccount */
 router.get('/myaccount', async function(req, res, next) {
