@@ -42,6 +42,25 @@ router.post('/login', async function(req, res, next) {
     }
 });
 
+/* POST - /users/logout*/
+router.post('/logout', async function(req, res, next) {
+    try {
+        res.clearCookie('connect.sid');
+
+        req.session.destroy((err) => {
+            if (err) {
+                console.error(err);
+                res.sendStatus(500);
+                return;
+            }
+            res.json({status_code: 1, message: "User logged out successfully."});
+        });
+    } catch (err) {
+        console.error(`Error`, err.message);
+        next(err);
+    }
+});
+
 /* POST - /users/resend */
 router.post('/resend', async function(req, res, next) {
     try {
