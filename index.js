@@ -34,5 +34,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-    console.log(`MathRevealer API running at http://localhost:${port}`);
+    console.log(`MathRevealer API running at https://mathrevealer.garamante.it/api`);
+    console.log(`Local path: http://localhost:${port}`);
 });
