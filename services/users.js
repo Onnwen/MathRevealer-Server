@@ -81,20 +81,23 @@ async function resendVerificationEmail(email) {
         if (result[0].email_verified) {
             return {status_code: 2, message: "User already verified."};
         }
-    }
-    else {
-        try {
-            const url = Uuid.v4();
-            await db.query(`UPDATE verification_urls
+        else {
+            try {
+                const url = Uuid.v4();
+                await db.query(`UPDATE verification_urls
                             SET url = '${url}'
                             WHERE user_id = (SELECT id FROM users WHERE email = '${email}')`);
-            let userInformation = {email: email}
-            await sendVerificationEmail(userInformation, url);
-            return {status_code: 1, message: "Email sent successfully."};
-        } catch (err) {
-            console.log(err);
-            return {status_code: 0, message: "Email not sent."};
+                let userInformation = {email: email}
+                await sendVerificationEmail(userInformation, url);
+                return {status_code: 1, message: "Email sent successfully."};
+            } catch (err) {
+                console.log(err);
+                return {status_code: 0, message: "Email not sent."};
+            }
         }
+    }
+    else {
+        return {status_code: 0, message: "Email not sent."};
     }
 }
 
