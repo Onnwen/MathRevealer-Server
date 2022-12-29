@@ -2,12 +2,13 @@ const db = require("./db");
 
 async function expression(expression, user_id) {
     try {
-        await db.query(
+        const result = await db.query(
             `INSERT INTO reports (expression, user_id)
          VALUES ('${expression}', ${user_id})`
         );
 
-        return { status_code: 1, message: "Report saved successfully." };
+        // return also the id of the report
+        return { status_code: 1, message: "Expression saved successfully.", report_id: result.insertId };
     }
     catch (err) {
         console.log(err);
