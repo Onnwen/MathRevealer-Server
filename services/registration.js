@@ -53,12 +53,12 @@ async function resend(email) {
                 return {status_code: 1, message: "Email sent successfully."};
             } catch (err) {
                 console.log(err);
-                return {status_code: 0, message: "Email not sent."};
+                return {status_code: 0, message: "Email not sent. Error sending email."};
             }
         }
     }
     else {
-        return {status_code: 0, message: "Email not sent."};
+        return {status_code: 0, message: "Email not sent. User not found."};
     }
 }
 
