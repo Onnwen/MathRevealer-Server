@@ -26,7 +26,7 @@ router.post('/confirm', async function(req, res, next) {
 /* POST - /registration/register*/
 router.post('/register', async function(req, res, next) {
     try {
-        let responseCode = await users.register(req.body, req);
+        let responseCode = await registration.registration(req.body, req);
         res.json(responseCode);
     } catch (err) {
         console.error(`Error`, err.message);
