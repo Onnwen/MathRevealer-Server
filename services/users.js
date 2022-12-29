@@ -140,6 +140,31 @@ async function saveExpression(expression, id) {
     }
 }
 
+async function getChronolgy(user_id) {
+    try {
+        const result = await db.query(`SELECT chronology.expression, chronology.date
+                                       FROM chronology
+                                       WHERE chronology.user_id = ${user_id}`);
+        let chronology = {};
+        for (let i = 0; i < result.length; i++) {
+            let date = result[i].date;
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+            let key = `${day}/${month}/${year}`;
+            if (chronology[key] === undefined) {
+                chronology[key] = [];
+            }
+            chronology[key].push(result[i].expression);
+        }
+
+        return {status_code: 1, chronology: result};
+    } catch (err) {
+        console.log(err);
+        return {status_code: 0, message: "Chronology not found."};
+    }
+}
+
 module.exports = {
     getUserById,
     login,
@@ -147,5 +172,6 @@ module.exports = {
     resendVerificationEmail,
     confirmUserRegistration,
     myAccount,
-    saveExpression
+    saveExpression,
+    getChronolgy
 }
