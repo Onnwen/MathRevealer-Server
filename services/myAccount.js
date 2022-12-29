@@ -42,7 +42,7 @@ async function getSavedExpressions(user_id) {
             chronology[key].push(result[i].expression);
         }
 
-        return {status_code: 1, chronology: result};
+        return {status_code: 1, chronology: chronology};
     } catch (err) {
         console.log(err);
         return {status_code: 0, message: "Chronology not found."};
