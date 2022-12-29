@@ -37,7 +37,7 @@ async function registration(userInformation, req) {
 }
 
 async function resend(email) {
-    const result = await db.query(`SELECT users.email_verified FROM users WHERE users.email = '${email}'`);
+    const result = await db.query(`SELECT users.email_verified, users.first_name FROM users WHERE users.email = '${email}'`);
     if (result.length) {
         if (result[0].email_verified) {
             return {status_code: 2, message: "User already verified."};
@@ -48,7 +48,7 @@ async function resend(email) {
                 await db.query(`UPDATE verification_urls
                             SET url = '${url}'
                             WHERE user_id = (SELECT id FROM users WHERE email = '${email}')`);
-                let userInformation = {email: email}
+                let userInformation = {email: email, first_name: result[0].first_name};
                 await sendVerificationEmail(userInformation, url);
                 return {status_code: 1, message: "Email sent successfully."};
             } catch (err) {
