@@ -2,7 +2,6 @@ const express = require("express");
 const crypto = require("crypto");
 const app = express();
 const port = 3000;
-const users = require("./routes/users");
 const session = require("express-session");
 
 app.use(express.json());
@@ -36,7 +35,11 @@ app.get("/", (req, res) => {
     res.json({server_status: "running"});
 });
 
-app.use("/users", users);
+app.use("/users", require("./routes/users"));
+
+app.use("/myAccount", require("./routes/myaccount"));
+
+app.use("/registration", require("./routes/registration"));
 
 /* Error handler */
 app.use((err, req, res, next) => {
