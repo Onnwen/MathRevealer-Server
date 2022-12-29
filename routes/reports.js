@@ -1,3 +1,5 @@
+const express = require('express');
+const router = express.Router();
 const reports = require('../services/reports');
 
 /* POST | /report/expression */
