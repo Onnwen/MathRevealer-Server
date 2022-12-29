@@ -7,6 +7,5 @@ async function getUserById(id) {
 }
 
 module.exports = {
-    getUserById,
-    register
+    getUserById
 }
