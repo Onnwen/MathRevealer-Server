@@ -41,6 +41,8 @@ app.use("/myAccount", require("./routes/myAccount"));
 
 app.use("/registration", require("./routes/registration"));
 
+app.use("/reports", require("./routes/reports"));
+
 /* Error handler */
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
