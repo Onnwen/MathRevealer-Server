@@ -95,8 +95,12 @@ router.post('/register', async function(req, res, next) {
 /* POST - /users/saveExpression*/
 router.post('/saveExpression', async function(req, res, next) {
     try {
-        let responseCode = await users.saveExpression(req.body.expression, req.session.userInformation.id);
-        res.json(responseCode);
+        if (req.session.userInformation) {
+            res.json(await users.saveExpression(req.body.expression, req.session.userInformation.id));
+        }
+        else {
+            res.json({status_code: 0, message: "User not logged."});
+        }
     } catch (err) {
         console.error(`Error`, err.message);
         next(err);
