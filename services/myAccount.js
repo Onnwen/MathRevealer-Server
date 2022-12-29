@@ -64,7 +64,7 @@ async function getSavedExpressions(user_id) {
                 }
                 chronology[key] = {labelName: labelName, expressions: []};
             }
-            chronology[key].push(result[i].expression);
+            chronology[key].expressions.push(result[i].expression);
         }
 
         return {status_code: 1, chronology: chronology};
