@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", require("./routes/users"));
 
-app.use("/myAccount", require("./routes/myaccount"));
+app.use("/myAccount", require("./routes/myAccount"));
 
 app.use("/registration", require("./routes/registration"));
 
