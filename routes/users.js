@@ -107,8 +107,8 @@ router.post('/saveExpression', async function(req, res, next) {
     }
 });
 
-/* POST - /users/chronology*/
-router.post('/chronology', async function(req, res, next) {
+/* GET - /users/chronology*/
+router.get('/chronology', async function(req, res, next) {
     try {
         if (req.session.userInformation) {
             res.json(await users.getChronolgy(req.session.userInformation.id));
