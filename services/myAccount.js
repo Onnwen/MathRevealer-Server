@@ -37,7 +37,32 @@ async function getSavedExpressions(user_id) {
             let year = date.getFullYear();
             let key = `${day}/${month}/${year}`;
             if (chronology[key] === undefined) {
-                chronology[key] = [];
+                let labelName = "";
+                let today = new Date();
+                let yesterday = new Date();
+                yesterday.setDate(today.getDate() - 1);
+                if (date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
+                    labelName = "Oggi";
+                }
+                else if (date.getDate() === yesterday.getDate() && date.getMonth() === yesterday.getMonth() && date.getFullYear() === yesterday.getFullYear()) {
+                    labelName = "Ieri";
+                }
+                else {
+                    let daysAgo = Math.floor((today.getTime() - date.getTime()) / (1000 * 3600 * 24));
+                    if (daysAgo < 7) {
+                        labelName = `${daysAgo} giorni fa`;
+                    }
+                    else if (daysAgo < 30) {
+                        labelName = `${Math.floor(daysAgo / 7)} settimane fa`;
+                    }
+                    else if (daysAgo < 365) {
+                        labelName = `${Math.floor(daysAgo / 30)} mesi fa`;
+                    }
+                    else {
+                        labelName = `${Math.floor(daysAgo / 365)} anni fa`;
+                    }
+                }
+                chronology[key] = {labelName: labelName, expressions: []};
             }
             chronology[key].push(result[i].expression);
         }
