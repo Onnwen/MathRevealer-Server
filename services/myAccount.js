@@ -5,11 +5,10 @@ async function getInformation(req) {
     if (req.session.userInformation) {
         const information = req.session.userInformation;
         delete information.hashed_password;
+        console.log("An authenticated user requested his information. (ID: " + information.id + "; IP: " + req.ip + ")");
         return {status_code: 1, userInformation: information};
     }
-    else {
-
-    }
+    console.log("A user tried to access information without being logged in. (IP: " + req.ip + ")");
     return {status_code: 0, message: "User not logged."};
 }
 
