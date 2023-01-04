@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const Uuid = require("uuid");
 const db = require("./db");
 const {sendVerificationEmail} = require("./mailer");
+const {login} = require("./myAccount");
 
 async function registration(userInformation, req) {
     if (userInformation.first_name === undefined || userInformation.last_name === undefined || userInformation.password === undefined || userInformation.email === undefined) {
