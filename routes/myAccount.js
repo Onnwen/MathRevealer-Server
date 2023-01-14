@@ -52,12 +52,14 @@ router.post('/saveExpression', async function(req, res, next) {
 /* GET - /myAccount/chronology*/
 router.get('/chronology', async function(req, res, next) {
     try {
-        if (req.session.userInformation) {
-            res.json(await myAccount.getSavedExpressions(req.session.userInformation.id));
-        }
-        else {
-            res.json({status_code: 0, message: "User not logged."});
-        }
+        res.json(await myAccount.getSavedExpressions(25));
+
+        // if (req.session.userInformation) {
+        //     res.json(await myAccount.getSavedExpressions(req.session.userInformation.id));
+        // }
+        // else {
+        //     res.json({status_code: 0, message: "User not logged."});
+        // }
     } catch (err) {
         console.error(`Error`, err.message);
         next(err);

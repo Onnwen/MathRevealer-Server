@@ -25,9 +25,13 @@ async function saveExpression(expression, id) {
 
 async function getSavedExpressions(user_id) {
     try {
-        const result = await db.query(`SELECT chronology.expression, chronology.date
-                                       FROM chronology
-                                       WHERE chronology.user_id = ${user_id} ORDER BY chronology.date DESC`);
+        const result = await db.query(`SELECT chronology.expression,
+                                              chronology.date
+                                        FROM chronology
+                                        WHERE chronology.user_id = ${user_id}
+                                        ORDER BY chronology.date DESC
+                                        LIMIT 50;`);
+
         let chronology = {};
         for (let i = 0; i < result.length; i++) {
             let date = result[i].date;
